@@ -10,7 +10,7 @@ const posts = [
         data: "12-11-2022",
         testo_post: "lorem ipsum dolor",
         immagine_post: 'https://picsum.photos/900/800',
-        numero_likes:20
+        numero_likes: 20
     },
     {
         id: 2,
@@ -57,11 +57,11 @@ posts.forEach((post, i) => {
     </div>
 
     <div class="card_footer d-flex">
-        <button onclick="buttonClick();">
+        <button class="likes_btn">
             <i class="fa-solid fa-thumbs-up"></i>
-            Mi piace
+            <span class="nonPressed">Mi piace</span>
         </button>
-        <input type="text" id="count" value="0"/>
+        <button>Piace a <b><span id="numbero_likes" class="likes">  ${posts[i].numero_likes}</span></b> persone</button>
     </div>
 </div>
     `
@@ -71,11 +71,34 @@ const containerElement = document.querySelector(".cards");
 containerElement.innerHTML = cards;
 
 
-
-let i = 0;
-function buttonClick() {
-    document.getElementById('count').value = `Piace a ${++i} persone`;
-}
+/* Milestone 3
+Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo. Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like. */
 
 
+// riprendo il numero per i likes dove incrementare
+let likes = document.querySelectorAll(".likes")
+//console.log(likes)
 
+// riprendo il bottone dove cliccare per l'incremento
+let likesBtn = document.querySelectorAll(".likes_btn")
+
+const arrayLiked = [];
+
+
+
+likesBtn.forEach((element, i, array) =>{
+    likesBtn[i].addEventListener("click", function(){
+
+        if (!likesBtn[i].classList.contains("likePressed"));
+        posts[i]["numero_likes"] += 1;
+        
+        likes[i].innerHTML = posts[i]["numero_likes"];
+        //incremento nell'arrau 
+        arrayLiked.push(posts[i]["id"]);
+        console.log(arrayLiked);
+        //aggiungi classe per cambiare il colore allo span
+        likesBtn[i].classList.add("likePressed")
+
+
+    }) 
+})
